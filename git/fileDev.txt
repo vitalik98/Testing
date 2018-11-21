@@ -1,1 +1,1 @@
-smthDev smthDev2 beforeMergeInDev
+smthDev smthDev2 beforeMergeInDev 1
