@@ -13,17 +13,13 @@ public class FirstTest {
     public void Test () throws InterruptedException{
         System.setProperty("webdriver.chrome.driver", "C://chromedriver/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
         driver.get("https://www.pobeda.aero/");
-        sleep(10000);
-        WebElement hotelLabel = driver.findElement(By.cssSelector("label[id='label-thirdParties-Hotels']"));
-        hotelLabel.click();
-        sleep(10000);
-        WebElement searchButton = driver.findElement(By.cssSelector("button[id='searchButton']"));
-        searchButton.click();
-        sleep(10000);
-        WebElement tablePrice = driver.findElement(By.cssSelector(".date.active.enabled div div .price"));
-        WebElement totalPrice = driver.findElement(By.cssSelector(".total .right .amountDue"));
-        Assert.assertEquals(tablePrice.getText(),totalPrice.getText());
+        sleep(1000);
+        WebElement destCityInput = driver.findElement(By.className("input-seats"));
+        destCityInput.sendKeys("10");
+        sleep(1000);
+        Assert.assertEquals(destCityInput.getAttribute("value"),"9");
         driver.close();
     }
 
