@@ -2,6 +2,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class TriangleTest {
+
     @Test
     public void isTriangleCorrectConditionsReturnTrue(){
         Assert.assertTrue(Triangle.isTriangle(3,4,5));
