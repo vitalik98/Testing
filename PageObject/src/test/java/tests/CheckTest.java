@@ -14,8 +14,8 @@ import static java.lang.Thread.sleep;
 
 public class CheckTest {
 
-    public static WebDriver driver;
-    public static SearchPage page;
+    private static WebDriver driver;
+    private static SearchPage page;
 
     @BeforeClass
     public static void setup() {
@@ -28,10 +28,10 @@ public class CheckTest {
     }
     @Test
     public void checkSeatAmount() throws InterruptedException {
-        page.seatAmount.clear();
-        page.seatAmount.sendKeys("0");
-        sleep(10000);
-        Assert.assertEquals(page.searchButton.getAttribute("disabled"), "true");
+        page.getSeatAmount().clear();
+        page.getSeatAmount().sendKeys("0");
+        sleep(1000);
+        Assert.assertTrue(page.searchButtonIsDisabled());
     }
     @AfterClass
     public static void tearDown() {

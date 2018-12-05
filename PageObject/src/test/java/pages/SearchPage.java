@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class SearchPage {
 
-    public WebDriver driver;
+    private WebDriver driver;
 
     public SearchPage(WebDriver driver){
         PageFactory.initElements(driver,this);
@@ -15,8 +15,20 @@ public class SearchPage {
     }
 
     @FindBy(className = "input-seats")
-    public WebElement seatAmount;
+    private WebElement seatAmount;
+
+    public WebElement getSeatAmount() {
+        return seatAmount;
+    }
 
     @FindBy(id = "searchButton")
-    public WebElement searchButton;
+    private WebElement searchButton;
+
+    public WebElement getSearchButton() {
+        return searchButton;
+    }
+
+    public boolean searchButtonIsDisabled(){
+         return searchButton.getAttribute("disabled").equals("true");
+    }
 }
