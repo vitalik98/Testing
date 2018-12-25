@@ -1,5 +1,6 @@
 package by.bsu.mazanik.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -35,10 +36,17 @@ public class SearchPage {
     @FindBy(id = "label-thirdParties-IntentMedia")
     private WebElement hotelCheckBox;
 
+    @FindBy(className = "backdrop-close")
+    private WebElement backdropClose;
+
     public SearchPage(WebDriver driver){
         PageFactory.initElements(driver,this);
         this.driver = driver;
         wait = new WebDriverWait(this.driver, 10);
+    }
+
+    public WebElement getBackdropClose(){
+        return backdropClose;
     }
 
     public WebElement getHotelCheckBox(){
@@ -77,6 +85,15 @@ public class SearchPage {
 
     public String getHotelLabelValue(){
         return checkVisibility(getHotelLabel()).getText();
+    }
+
+    public void closeBackdrop(){
+        checkVisibility(getBackdropClose()).click();
+    }
+
+    public void clickSearch(){
+        /*wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("searchButton")));*/
+        checkVisibility(getSearchButton()).click();
     }
 
     public void fillDepartureStation(String city){

@@ -1,5 +1,6 @@
 package by.bsu.mazanik;
 
+import by.bsu.mazanik.pages.InfoPage;
 import by.bsu.mazanik.pages.RoutePage;
 import by.bsu.mazanik.pages.SearchPage;
 import org.junit.After;
@@ -16,6 +17,7 @@ public class Tests {
     WebDriver driver;
     SearchPage sPage;
     RoutePage rPage;
+    InfoPage iPage;
 
     @Before
     public void openPage() {
@@ -24,16 +26,15 @@ public class Tests {
         options.addArguments("--headless");
         options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
         options.addArguments("--no-sandbox"); // Bypass OS security model
-        options.addArguments("--disable-notifications");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.get("https://www.pobeda.aero/");
         sPage = new SearchPage(driver);
         rPage = new RoutePage(driver);
+        iPage = new InfoPage(driver);
     }
 
-    //TODO @Tests
     @Test
     public void checkMinimumSeatAmount() {
         sPage.fillSeatAmount("0");
@@ -47,18 +48,23 @@ public class Tests {
     }
 
     @Test
-    public void checkWrongArrivalStation(){
-        sPage.fillArrivalStation("example");
+    public void checkAccompaniment(){
+        sPage.closeBackdrop();
         sPage.getHotelCheckBox().click();
-        sPage.getSearchButton().click();
-        Assert.assertEquals("Москва (Внуково)АланияМосква (Внуково)", rPage.getPathValue());
+        sPage.clickSearch();
+        rPage.clickContinue();
+        iPage.fillDayOfBirth("1");
+        iPage.fillMonthOfBirth("январь");
+        iPage.fillYearOfBirth("2003");
+        Assert.assertEquals("СОПРОВОЖДЕНИЕ РЕБЁНКА (5-16 ЛЕТ) ВО ВРЕМЯ ПОЛЁТА", iPage.getAccompanimentLabelValue());
     }
 
     @Test
     public void checkWrongDepartureStation(){
         sPage.fillDepartureStation("example");
+        sPage.closeBackdrop();
         sPage.getHotelCheckBox().click();
-        sPage.getSearchButton().click();
+        sPage.clickSearch();
         Assert.assertEquals("Москва (Внуково)АланияМосква (Внуково)", rPage.getPathValue());
     }
 
@@ -66,6 +72,26 @@ public class Tests {
     public void checkMaximumSeatAmount() {
         sPage.fillSeatAmount("100");
         Assert.assertEquals("9", sPage.getSeatAmountValue());
+    }
+
+    @Test
+    public void checkPassengerLastName(){
+        sPage.closeBackdrop();
+        sPage.getHotelCheckBox().click();
+        sPage.clickSearch();
+        rPage.clickContinue();
+        iPage.fillFirstName("Иван");
+        Assert.assertEquals("", iPage.getFirstNameValue());
+    }
+
+    @Test
+    public void checkPassengerFirstName(){
+        sPage.closeBackdrop();
+        sPage.getHotelCheckBox().click();
+        sPage.clickSearch();
+        rPage.clickContinue();
+        iPage.fillLastName("Иванов");
+        Assert.assertEquals("", iPage.getLastNameValue());
     }
 
     @After

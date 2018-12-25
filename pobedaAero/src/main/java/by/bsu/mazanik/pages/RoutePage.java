@@ -15,10 +15,17 @@ public class RoutePage {
     @FindBy(className = "path")
     private WebElement path;
 
+    @FindBy(className = "btn float-right")
+    private WebElement continueButton;
+
     public RoutePage(WebDriver driver){
         PageFactory.initElements(driver,this);
         this.driver = driver;
         wait = new WebDriverWait(this.driver, 10);
+    }
+
+    public WebElement getContinueButton(){
+        return continueButton;
     }
 
     public WebElement getPath(){
@@ -27,6 +34,10 @@ public class RoutePage {
 
     public String getPathValue(){
         return checkVisibility(getPath()).getText();
+    }
+
+    public void clickContinue(){
+        checkVisibility(getContinueButton()).click();
     }
 
     private WebElement checkVisibility(WebElement element) {
