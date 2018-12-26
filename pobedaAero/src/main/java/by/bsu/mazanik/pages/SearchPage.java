@@ -87,6 +87,14 @@ public class SearchPage {
         return checkVisibility(getHotelLabel()).getText();
     }
 
+    public String getDepartureStationValue(){
+        return checkVisibility(getDepartureStation()).getAttribute("value");
+    }
+
+    public String getArrivalStationValue(){
+        return checkVisibility(getArrivalStation()).getAttribute("value");
+    }
+
     public void closeBackdrop(){
         checkVisibility(getBackdropClose()).click();
     }

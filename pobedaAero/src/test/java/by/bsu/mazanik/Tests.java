@@ -69,6 +69,18 @@ public class Tests {
     }
 
     @Test
+    public void checkCityChange(){
+        sPage.fillArrivalStation("Киров");
+        Assert.assertEquals("Киров", sPage.getArrivalStationValue());
+    }
+
+    @Test
+    public void checkSeatAmountChange(){
+        sPage.fillSeatAmount("7");
+        Assert.assertEquals("7", sPage.getSeatAmountValue());
+    }
+
+    @Test
     public void checkMaximumSeatAmount() {
         sPage.fillSeatAmount("100");
         Assert.assertEquals("9", sPage.getSeatAmountValue());
@@ -94,9 +106,9 @@ public class Tests {
         Assert.assertEquals("", iPage.getLastNameValue());
     }
 
-    @After
+    /*@After
     public void close() {
         driver.quit();
         driver = null;
-    }
+    }*/
 }
